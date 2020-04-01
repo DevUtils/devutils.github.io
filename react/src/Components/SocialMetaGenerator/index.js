@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { atelierForestDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import DuNavBar from '../DuNavBar';
 
 export default class SocialMetaGenerator extends React.Component {
@@ -148,13 +150,14 @@ export default class SocialMetaGenerator extends React.Component {
           </Row>
           <Row>
             <Col>
-              <Input
-                rows="10"
-                type="textarea"
-                name="text"
-                id="exampleText"
-                value={code}
-              />
+              <SyntaxHighlighter
+                language="html"
+                style={atelierForestDark}
+                wrapLines={false}
+                showLineNumbers={true}
+              >
+                {code}
+              </SyntaxHighlighter>
             </Col>
           </Row>
         </Form>
