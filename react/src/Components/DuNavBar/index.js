@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import {
   Navbar,
   NavbarToggler,
-  NavbarBrand
-  // Collapse,
-  // Nav,
-  // NavItem,
-  // NavLink,
-  // UncontrolledDropdown,
-  // DropdownToggle,
-  // DropdownMenu,
-  // DropdownItem,
-  // NavbarText
+  NavbarBrand,
+  Collapse,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText
 } from 'reactstrap';
 
 const DuNavBar = (props) => {
@@ -24,10 +24,10 @@ const DuNavBar = (props) => {
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">DevUtils</NavbarBrand>
         <NavbarToggler onClick={toggle} />
-        {/* <Collapse isOpen={isOpen} navbar>
+        <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/components/">Social Meta Generator</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
@@ -51,7 +51,7 @@ const DuNavBar = (props) => {
             </UncontrolledDropdown>
           </Nav>
           <NavbarText>Simple Text</NavbarText>
-        </Collapse> */}
+        </Collapse>
       </Navbar>
     </div>
   );
