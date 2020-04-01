@@ -1,0 +1,8 @@
+{
+  "name": "devutils.github.io",
+  "version": "1.0.0",
+  "repository": "git@github.com:DevUtils/devutils.github.io.git",
+  "homepage": "https://devutils.github.io/page",
+  "author": "Marcelo XP <marceloxp@gmail.com>",
+  "license": "MIT"
+}
