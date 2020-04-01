@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cd build && mv * ../../ && cd .. && rm -rf build",
+    "build": "react-scripts build && rm -rf ../precache-manifest.* && rm -rf ../static && cd build && mv * ../../ && cd .. && rm -rf build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
