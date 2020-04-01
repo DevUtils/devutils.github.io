@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import {
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Collapse,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+  NavbarText,
+  Row, Col
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const DuNavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,40 +16,23 @@ const DuNavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
-      <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">DevUtils</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Social Meta Generator</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-          <NavbarText>Simple Text</NavbarText>
-        </Collapse>
-      </Navbar>
-    </div>
+      <Row style={{marginTop: 10}}>
+        <Col>
+          <Navbar color="dark" dark expand="md">
+            <NavbarToggler onClick={toggle} />
+            <Collapse isOpen={isOpen} navbar>
+              <Nav className="mr-auto" navbar>
+                <NavItem>
+                  <Link className="nav-link" to="/"><strong>DevUtils</strong></Link>
+                </NavItem>
+                {/* <NavItem>
+                  <Link className="nav-link" to="/social-meta-generator">Social Meta Generator</Link>
+                </NavItem> */}
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </Col>
+      </Row>
   );
 }
 

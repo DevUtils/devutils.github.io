@@ -5,10 +5,14 @@ import axios from 'axios';
 export default class MeuIp extends React.Component {
   constructor(props){
     super(props);
-    this.state = {'ip': 'Carregando...'}
+    this.state = {'ip': 'Carregando...'};
   }
 
   componentDidMount() {
+    this.getIp();
+  }
+
+  getIp() {
     axios.get(`https://api.ipify.org/?format=json`)
       .then(res => {
         const data = res.data;
