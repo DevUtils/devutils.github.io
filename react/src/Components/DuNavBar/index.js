@@ -5,7 +5,6 @@ import {
   Collapse,
   Nav,
   NavItem,
-  NavbarText,
   Row, Col
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -25,9 +24,9 @@ const DuNavBar = (props) => {
                 <NavItem>
                   <Link className="nav-link" to="/"><strong>DevUtils</strong></Link>
                 </NavItem>
-                {/* <NavItem>
+                <NavItem>
                   <Link className="nav-link" to="/social-meta-generator">Social Meta Generator</Link>
-                </NavItem> */}
+                </NavItem>
               </Nav>
             </Collapse>
           </Navbar>
