@@ -1,18 +1,11 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import DuNavBar from './Components/DuNavBar';
-import Home from './Components/Home';
+import MeuIp from './Components/MeuIp';
 
 import './App.css';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: {something: 'something'},
-    };
-  }
-
   render() {
     return (
       <Container>
@@ -23,7 +16,7 @@ export default class App extends React.Component {
         </Row>
         <Row style={{marginTop: 10}}>
           <Col>
-            <Home/>
+            <MeuIp/>
           </Col>
         </Row>
       </Container>

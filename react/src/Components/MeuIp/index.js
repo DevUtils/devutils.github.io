@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardTitle, CardText, CardColumns } from 'reactstrap';
 import axios from 'axios';
 
-export default class Home extends React.Component {
+export default class MeuIp extends React.Component {
   constructor(props){
     super(props);
     this.state = {'ip': 'Carregando...'}
