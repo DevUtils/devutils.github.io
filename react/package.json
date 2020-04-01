@@ -2,7 +2,7 @@
   "name": "page",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://devutils.github.io/page",
+  "homepage": "https://devutils.github.io",
   "dependencies": {
     "@react-native-community/netinfo": "^5.7.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../page && mv build ../page",
+    "build": "react-scripts build && cd build && mv * ../../ && cd .. && rm -rf build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
