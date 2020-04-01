@@ -7,10 +7,10 @@ export default class App extends React.Component {
   render() {
     return (
       <Container>
-        <DuNavBar/>
-        <Row style={{marginTop: 10}}>
+        <DuNavBar />
+        <Row style={{ marginTop: 10 }}>
           <Col>
-            <MeuIp/>
+            <MeuIp />
           </Col>
         </Row>
       </Container>

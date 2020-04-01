@@ -5,7 +5,7 @@ import './bootstrap.darkly.min.css';
 import './index.css';
 import App from './App';
 import SocialMetaGenerator from './Components/SocialMetaGenerator';
-import { HashRouter, BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -13,7 +13,7 @@ ReactDOM.render(
     <HashRouter>
         <Switch>
             <Route path="/" exact={true} component={App} />
-            <Route path="/social-meta-generator" component={SocialMetaGenerator} />
+            <Route path="/social-meta" component={SocialMetaGenerator} />
         </Switch>
     </HashRouter>
   </React.StrictMode>,
