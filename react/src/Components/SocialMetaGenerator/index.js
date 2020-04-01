@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atelierForestDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import DuNavBar from '../DuNavBar';
@@ -10,6 +10,7 @@ export default class SocialMetaGenerator extends React.Component {
     super(props);
     this.state = {
       code: '',
+      copySuccess: false,
       title: '',
       image: '',
       description: '',
@@ -28,6 +29,17 @@ export default class SocialMetaGenerator extends React.Component {
       [name]: value,
     });
   }
+
+  copyCodeToClipboard = (e) => {
+    e.preventDefault();
+    const el = this.textArea;
+    el.select();
+    document.execCommand('copy');
+    this.setState({ copySuccess: true });
+    setTimeout(() => {
+      this.setState({ copySuccess: false });
+    }, 2000);
+  };
 
   getCode() {
     const { title, image, description, type, url, keywords } = this.state;
@@ -146,6 +158,25 @@ export default class SocialMetaGenerator extends React.Component {
                   onChange={this.handleInputChange.bind(this)}
                 />
               </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Button color="primary" onClick={this.copyCodeToClipboard}>
+                  Copy to Clipboard
+                </Button>
+              </FormGroup>
+            </Col>
+            <Col>
+              {this.state.copySuccess ? (
+                <Alert color="success">Code copied successfully.</Alert>
+              ) : null}
+              <textarea
+                style={{ display: 'none' }}
+                ref={(textarea) => (this.textArea = textarea)}
+                value={code}
+              />
             </Col>
           </Row>
           <Row>
