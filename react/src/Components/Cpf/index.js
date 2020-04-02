@@ -74,15 +74,6 @@ export default class Cpf extends React.Component {
             </FormGroup>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            {this.state.copySuccess ? (
-              <Alert fade={false} color="success">
-                Code copied successfully.
-              </Alert>
-            ) : null}
-          </Col>
-        </Row>
       </Form>
     );
   }

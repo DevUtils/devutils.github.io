@@ -7,10 +7,12 @@ import Clipboard from 'react-clipboard.js';
 export default class SocialMetaGenerator extends React.Component {
   constructor(props) {
     super(props);
+    this.textCopy = 'Copy to clipboard';
+    this.textCopied = 'Text copied successfully.';
     this.state = {
       text: '',
       strMd5: '',
-      copySuccess: false,
+      textCopy: this.textCopy,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -22,10 +24,10 @@ export default class SocialMetaGenerator extends React.Component {
   }
 
   onSuccess() {
-    this.setState({ copySuccess: true });
+    this.setState({ textCopy: this.textCopied });
     setTimeout(() => {
-      this.setState({ copySuccess: false });
-    }, 1500);
+      this.setState({ textCopy: this.textCopy });
+    }, 2000);
   }
 
   render() {
@@ -63,24 +65,16 @@ export default class SocialMetaGenerator extends React.Component {
           <Col>
             <FormGroup>
               <Clipboard
+              disabled
                 className="btn-block btn btn-primary"
                 data-clipboard-text={this.state.strMd5}
                 onSuccess={() => {
                   this.onSuccess();
                 }}
               >
-                Copy to clipboard
+                {this.state.textCopy}
               </Clipboard>
             </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {this.state.copySuccess ? (
-              <Alert fade={false} color="success">
-                Code copied successfully.
-              </Alert>
-            ) : null}
           </Col>
         </Row>
       </Form>
