@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { Form, FormGroup, Input, Alert, Button } from 'reactstrap';
+import { Form, FormGroup, Input, CustomInput, Button } from 'reactstrap';
 import Clipboard from 'react-clipboard.js';
 import generateCpf from '../../Libs/cpf';
 
@@ -11,18 +11,26 @@ export default class Cpf extends React.Component {
     this.textCopied = 'Text copied successfully.';
     this.state = {
       cpf: '',
+      useDots: true,
       textCopy: this.textCopy,
     };
 
     this.handleGenerateClick = this.generateClick.bind(this);
+    this.handleUseDotsClick = this.useDotsClick.bind(this);
   }
 
   componentDidMount() {
-    this.setState({ cpf: generateCpf(true) });
+    this.setState({ cpf: generateCpf(this.state.useDots) });
   }
 
   generateClick() {
-    this.setState({ cpf: generateCpf(true) });
+    this.setState({ cpf: generateCpf(this.state.useDots) });
+  }
+  
+  useDotsClick(e) {
+    var checked = e.target.checked;
+    this.setState({ useDots: checked });
+    this.setState({ cpf: generateCpf(checked) });
   }
 
   onSuccess() {
@@ -49,6 +57,17 @@ export default class Cpf extends React.Component {
           <Col>
             <FormGroup>
               <Input type="text" readOnly value={this.state.cpf} />
+            </FormGroup>
+          </Col>
+          <Col xs="12" md="12" lg="6">
+            <FormGroup>
+              <CustomInput
+                type="switch"
+                id="useDots"
+                name="useDots"
+                label="Pontuação"
+                onChange={this.handleUseDotsClick} checked={this.state.useDots}
+              />
             </FormGroup>
           </Col>
         </Row>

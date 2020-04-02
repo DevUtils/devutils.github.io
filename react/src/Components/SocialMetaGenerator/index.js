@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atelierForestDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import DuNavBar from '../DuNavBar';

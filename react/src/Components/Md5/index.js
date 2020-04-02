@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import md5 from 'crypto-js/md5';
 import Clipboard from 'react-clipboard.js';
 
