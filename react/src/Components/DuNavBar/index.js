@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Navbar,
   NavbarToggler,
+  NavbarBrand,
   Collapse,
   Nav,
   NavItem,
@@ -11,22 +12,17 @@ import {
 import { Link } from 'react-router-dom';
 
 const DuNavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
     <Row style={{ marginTop: 10 }}>
       <Col>
         <Navbar color="dark" dark expand="md">
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
+          <NavbarBrand href="/#/" className="mr-auto">DevUtils</NavbarBrand>
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+          <Collapse isOpen={collapsed} navbar>
             <Nav className="mr-auto" navbar>
-              <NavItem>
-                <Link className="nav-link" to="/">
-                  <strong>DevUtils</strong>
-                </Link>
-              </NavItem>
               <NavItem>
                 <Link className="nav-link" to="/social-meta">
                   Social Meta
