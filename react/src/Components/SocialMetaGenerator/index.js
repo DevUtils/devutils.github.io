@@ -1,9 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import { Form, FormGroup, Label, Input, Alert, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atelierForestDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import DuNavBar from '../DuNavBar';
+import Clipboard from 'react-clipboard.js';
 
 export default class SocialMetaGenerator extends React.Component {
   constructor(props) {
@@ -30,16 +31,12 @@ export default class SocialMetaGenerator extends React.Component {
     });
   }
 
-  copyCodeToClipboard = (e) => {
-    e.preventDefault();
-    const el = this.textArea;
-    el.select();
-    document.execCommand('copy');
+  onSuccess() {
     this.setState({ copySuccess: true });
     setTimeout(() => {
       this.setState({ copySuccess: false });
-    }, 2000);
-  };
+    }, 1500);
+  }
 
   getCode() {
     const { title, image, description, type, url, keywords } = this.state;
@@ -163,20 +160,21 @@ export default class SocialMetaGenerator extends React.Component {
           <Row>
             <Col>
               <FormGroup>
-                <Button color="primary" onClick={this.copyCodeToClipboard}>
-                  Copy to Clipboard
-                </Button>
+                <Clipboard
+                  className="btn btn-primary"
+                  data-clipboard-text={code}
+                  onSuccess={() => {
+                    this.onSuccess();
+                  }}
+                >
+                  Copy to clipboard
+                </Clipboard>
               </FormGroup>
             </Col>
             <Col>
               {this.state.copySuccess ? (
                 <Alert color="success">Code copied successfully.</Alert>
               ) : null}
-              <textarea
-                style={{ display: 'none' }}
-                ref={(textarea) => (this.textArea = textarea)}
-                value={code}
-              />
             </Col>
           </Row>
           <Row>
