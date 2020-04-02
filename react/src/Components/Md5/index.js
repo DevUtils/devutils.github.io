@@ -63,7 +63,7 @@ export default class SocialMetaGenerator extends React.Component {
           <Col>
             <FormGroup>
               <Clipboard
-                className="btn btn-primary"
+                className="btn-block btn btn-primary"
                 data-clipboard-text={this.state.strMd5}
                 onSuccess={() => {
                   this.onSuccess();

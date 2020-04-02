@@ -5,6 +5,7 @@ import { Card, CardTitle } from 'reactstrap';
 import DuNavBar from './Components/DuNavBar';
 import MeuIp from './Components/MeuIp';
 import Md5 from './Components/Md5';
+import Cpf from './Components/Cpf';
 
 import './App.css';
 
@@ -26,6 +27,14 @@ export default class App extends React.Component {
             <Card body inverse>
               <h4>MD5</h4>
               <Md5 />
+            </Card>
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 10 }}>
+          <Col>
+            <Card body inverse>
+              <h4>Gerador de CPF</h4>
+              <Cpf />
             </Card>
           </Col>
         </Row>
