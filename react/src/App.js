@@ -6,6 +6,8 @@ import DuNavBar from './Components/DuNavBar';
 import MeuIp from './Components/MeuIp';
 import Md5 from './Components/Md5';
 
+import './App.css';
+
 export default class App extends React.Component {
   render() {
     return (
@@ -13,15 +15,7 @@ export default class App extends React.Component {
         <DuNavBar />
         <Row style={{ marginTop: 10 }}>
           <Col xs="12" sm="5" md="4">
-            <Card
-              body
-              inverse
-              style={{
-                backgroundColor: '#333',
-                borderColor: '#111',
-                marginTop: 10,
-              }}
-            >
+            <Card body inverse>
               <CardTitle>
                 <h4>Meu IP</h4>
               </CardTitle>
@@ -29,15 +23,7 @@ export default class App extends React.Component {
             </Card>
           </Col>
           <Col>
-            <Card
-              body
-              inverse
-              style={{
-                backgroundColor: '#333',
-                borderColor: '#111',
-                marginTop: 10,
-              }}
-            >
+            <Card body inverse>
               <h4>MD5</h4>
               <Md5 />
             </Card>
