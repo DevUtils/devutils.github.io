@@ -32,11 +32,6 @@ const DuNavBar = (props) => {
                   Social Meta
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link className="nav-link" to="/md5">
-                  MD5
-                </Link>
-              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { Card, CardTitle } from 'reactstrap';
+
 import DuNavBar from './Components/DuNavBar';
 import MeuIp from './Components/MeuIp';
+import Md5 from './Components/Md5';
 
 export default class App extends React.Component {
   render() {
@@ -9,8 +12,35 @@ export default class App extends React.Component {
       <Container>
         <DuNavBar />
         <Row style={{ marginTop: 10 }}>
+          <Col xs="12" sm="5" md="4">
+            <Card
+              body
+              inverse
+              style={{
+                backgroundColor: '#333',
+                borderColor: '#111',
+                marginTop: 10,
+              }}
+            >
+              <CardTitle>
+                <h4>Meu IP</h4>
+              </CardTitle>
+              <MeuIp />
+            </Card>
+          </Col>
           <Col>
-            <MeuIp />
+            <Card
+              body
+              inverse
+              style={{
+                backgroundColor: '#333',
+                borderColor: '#111',
+                marginTop: 10,
+              }}
+            >
+              <h4>MD5</h4>
+              <Md5 />
+            </Card>
           </Col>
         </Row>
       </Container>

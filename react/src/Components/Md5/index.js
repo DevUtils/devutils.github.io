@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import DuNavBar from '../DuNavBar';
 import md5 from 'crypto-js/md5';
 import Clipboard from 'react-clipboard.js';
 
@@ -32,7 +31,6 @@ export default class SocialMetaGenerator extends React.Component {
   render() {
     return (
       <Container>
-        <DuNavBar />
         <Form>
           <Row style={{ marginTop: 10 }}>
             <Col>
