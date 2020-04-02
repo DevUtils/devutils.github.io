@@ -9,9 +9,11 @@ import Clipboard from 'react-clipboard.js';
 export default class SocialMetaGenerator extends React.Component {
   constructor(props) {
     super(props);
+    this.textCopy = 'Copy to clipboard';
+    this.textCopied = 'Text copied successfully.';
     this.state = {
       code: '',
-      copySuccess: false,
+      textCopy: this.textCopy,
       title: '',
       image: '',
       description: '',
@@ -32,10 +34,10 @@ export default class SocialMetaGenerator extends React.Component {
   }
 
   onSuccess() {
-    this.setState({ copySuccess: true });
+    this.setState({ textCopy: this.textCopied });
     setTimeout(() => {
-      this.setState({ copySuccess: false });
-    }, 1500);
+      this.setState({ textCopy: this.textCopy });
+    }, 2000);
   }
 
   getCode() {
@@ -167,14 +169,9 @@ export default class SocialMetaGenerator extends React.Component {
                     this.onSuccess();
                   }}
                 >
-                  Copy to clipboard
+                  {this.state.textCopy}
                 </Clipboard>
               </FormGroup>
-            </Col>
-            <Col>
-              {this.state.copySuccess ? (
-                <Alert color="success">Code copied successfully.</Alert>
-              ) : null}
             </Col>
           </Row>
           <Row>
