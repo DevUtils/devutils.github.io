@@ -2,15 +2,15 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import { Form, FormGroup, Input, Alert, Button } from 'reactstrap';
 import Clipboard from 'react-clipboard.js';
-import generateCpf from '../../Libs/cpf';
+import generateCnpj from '../../Libs/cnpj';
 
-export default class Cpf extends React.Component {
+export default class Cnpj extends React.Component {
   constructor(props) {
     super(props);
     this.textCopy = 'Copy to clipboard';
     this.textCopied = 'Text copied successfully.';
     this.state = {
-      cpf: '',
+      cnpj: '',
       textCopy: this.textCopy,
     };
 
@@ -18,11 +18,11 @@ export default class Cpf extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ cpf: generateCpf(true) });
+    this.setState({ cnpj: generateCnpj(true) });
   }
 
   generateClick() {
-    this.setState({ cpf: generateCpf(true) });
+    this.setState({ cnpj: generateCnpj(true) });
   }
 
   onSuccess() {
@@ -48,7 +48,7 @@ export default class Cpf extends React.Component {
         <Row>
           <Col>
             <FormGroup>
-              <Input type="text" readOnly value={this.state.cpf} />
+              <Input type="text" readOnly value={this.state.cnpj} />
             </FormGroup>
           </Col>
         </Row>
@@ -57,7 +57,7 @@ export default class Cpf extends React.Component {
             <FormGroup>
               <Clipboard
                 className="btn-block btn btn-primary"
-                data-clipboard-text={this.state.cpf}
+                data-clipboard-text={this.state.cnpj}
                 onSuccess={() => {
                   this.onSuccess();
                 }}
