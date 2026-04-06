@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevUtils — Ferramentas para Desenvolvedores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #0d0f12;
+            --bg-card: #13161b;
+            --bg-input: #1a1e25;
+            --border: #2a2f3a;
+            --border-accent: #3a4050;
+            --text: #e8eaf0;
+            --text-muted: #7a8090;
+            --text-dim: #4a5060;
+            --accent: #4ade80;
+            --accent-glow: rgba(74, 222, 128, 0.15);
+            --accent-border: rgba(74, 222, 128, 0.4);
+            --blue: #60a5fa;
+            --blue-glow: rgba(96, 165, 250, 0.12);
+            --amber: #fbbf24;
+            --mono: 'JetBrains Mono', monospace;
+            --display: 'Syne', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f4f5f7;
+            --bg-card: #ffffff;
+            --bg-input: #f0f2f5;
+            --border: #e0e3ea;
+            --border-accent: #c8cdd8;
+            --text: #1a1d24;
+            --text-muted: #6b7280;
+            --text-dim: #9ca3af;
+            --accent: #16a34a;
+            --accent-glow: rgba(22, 163, 74, 0.08);
+            --accent-border: rgba(22, 163, 74, 0.35);
+            --blue: #2563eb;
+            --blue-glow: rgba(37, 99, 235, 0.08);
+            --amber: #d97706;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--mono);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ─── HEADER ─── */
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--display);
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-bracket {
+            color: var(--accent);
+            font-family: var(--mono);
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            color: var(--text);
+        }
+
+        .logo-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        .theme-btn {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--border-accent);
+            color: var(--text);
+        }
+
+        .theme-icon {
+            font-size: 14px;
+        }
+
+        /* ─── MAIN ─── */
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ─── CARD ─── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-family: var(--display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* ─── BIG DISPLAY ─── */
+        .value-display {
+            font-family: var(--mono);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text);
+            padding: 1.2rem 1.5rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .value-display.green {
+            color: var(--accent);
+        }
+
+        .value-display.blue {
+            color: var(--blue);
+        }
+
+        .value-display.loading {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 9px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--bg-input);
+            color: var(--text);
+            border-color: var(--border-accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent-border);
+            color: var(--accent);
+        }
+
+        .btn-copy {
+            background: transparent;
+            color: var(--text-muted);
+            border-color: var(--border);
+        }
+
+        .btn-copy:hover {
+            color: var(--text);
+            border-color: var(--border-accent);
+        }
+
+        .btn-copy.copied {
+            color: var(--accent);
+            border-color: var(--accent-border);
+            background: var(--accent-glow);
+        }
+
+        /* ─── DISCLAIMER ─── */
+        .disclaimer {
+            margin-top: 1rem;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            border-left: 2px solid var(--border);
+            padding-left: 10px;
+        }
+
+        /* ─── INPUT / TEXTAREA ─── */
+        .field-label {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-family: var(--display);
+            font-weight: 600;
+        }
+
+        .field {
+            margin-bottom: 1rem;
+        }
+
+        textarea,
+        input[type="text"],
+        input[type="url"] {
+            width: 100%;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 10px 12px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        textarea:focus,
+        input:focus {
+            border-color: var(--border-accent);
+        }
+
+        /* ─── HASH DISPLAY ─── */
+        .hash-display {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--blue);
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 14px;
+            word-break: break-all;
+            margin-bottom: 1rem;
+            min-height: 44px;
+        }
+
+        .hash-display.empty {
+            color: var(--text-dim);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        /* ─── CODE OUTPUT ─── */
+        .code-output {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: #a8b4c8;
+            background: #0a0c0f;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px 16px;
+            overflow-x: auto;
+            white-space: pre;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        [data-theme="light"] .code-output {
+            background: #1e2330;
+            color: #a8b4c8;
+        }
+
+        .code-output .tag {
+            color: #7dd3fc;
+        }
+
+        .code-output .attr {
+            color: #86efac;
+        }
+
+        .code-output .val {
+            color: #fde68a;
+        }
+
+        .code-output .comment {
+            color: #4a5568;
+            font-style: italic;
+        }
+
+        /* ─── META FORM ─── */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 1.2rem;
+        }
+
+        .meta-grid .field:nth-child(1),
+        .meta-grid .field:nth-child(2) {
+            grid-column: span 1;
+        }
+
+        .meta-grid .field.full {
+            grid-column: span 2;
+        }
+
+        /* ─── IP ─── */
+        .ip-source {
+            font-size: 0.73rem;
+            color: var(--text-dim);
+            margin-top: 0.7rem;
+            font-style: italic;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-family: var(--mono);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--text);
+        }
+
+        /* ─── SECTION DIVIDER ─── */
+        .section-intro {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            header {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 1.5rem 1rem 3rem;
+                gap: 1rem;
+            }
+
+            .value-display {
+                font-size: 1.5rem;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meta-grid .field.full {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── HEADER ─── -->
+    <header>
+        <div class="logo">
+            <span class="logo-bracket">{</span>
+            <span class="logo-text">DevUtils</span>
+            <span class="logo-bracket">}</span>
+            <span class="logo-dot"></span>
+        </div>
+        <button class="theme-btn" onclick="toggleTheme()">
+            <span class="theme-icon" id="theme-icon">☀</span>
+            <span id="theme-label">Modo claro</span>
+        </button>
+    </header>
+
+    <!-- ─── MAIN ─── -->
+    <main>
+
+        <!-- 1. MEU IP -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="card-title-dot"></div>
+                    Meu IP
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="value-display blue" id="ip-display">186.204.63.216</div>
+                <div class="btn-row">
+                    <button class="btn btn-primary">↺ Atualizar IP</button>
+                    <button class="btn btn-copy" id="copy-ip-btn" onclick="fakeCopy('copy-ip-btn')">Copiar IP</button>
+                </div>
+                <p class="ip-source">IP detectado via api.ipify.org</p>
+            </div>
+        </div>
+
+        <!-- 2. GERADOR MD5 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="card-title-dot"></div>
+                    Gerador MD5
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="field">
+                    <div class="field-label">Texto</div>
+                    <textarea rows="3" placeholder="Digite o texto para gerar o hash..." oninput="updateMd5(this.value)"
+                        id="md5-input"></textarea>
+                </div>
+                <div class="field-label">Hash MD5</div>
+                <div class="hash-display empty" id="md5-output">aguardando entrada...</div>
+                <div class="btn-row">
+                    <button class="btn btn-copy" id="copy-md5-btn" onclick="fakeCopy('copy-md5-btn')">Copiar
+                        Hash</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. GERADOR CPF -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="card-title-dot"></div>
+                    Gerador de CPF
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="value-display green" id="cpf-display">748.538.887-80</div>
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="newCpf()">↺ Gerar Novo CPF</button>
+                    <button class="btn btn-copy" id="copy-cpf-btn" onclick="fakeCopy('copy-cpf-btn')">Copiar
+                        CPF</button>
+                </div>
+                <p class="disclaimer">
+                    A ferramenta abaixo tem o objetivo de auxiliar desenvolvedores de softwares a testarem em seu
+                    ambiente de desenvolvimento.
+                    A má utilização desse conteúdo é de total responsabilidade do visitante. Não possuímos vínculos com
+                    a Receita Federal.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. GERADOR CNPJ -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="card-title-dot"></div>
+                    Gerador de CNPJ
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="value-display green" id="cnpj-display">41.802.228/0001-82</div>
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="newCnpj()">↺ Gerar Novo CNPJ</button>
+                    <button class="btn btn-copy" id="copy-cnpj-btn" onclick="fakeCopy('copy-cnpj-btn')">Copiar
+                        CNPJ</button>
+                </div>
+                <p class="disclaimer">
+                    A ferramenta abaixo tem o objetivo de auxiliar desenvolvedores de softwares a testarem em seu
+                    ambiente de desenvolvimento.
+                    A má utilização desse conteúdo é de total responsabilidade do visitante. Não possuímos vínculos com
+                    a Receita Federal.
+                </p>
+            </div>
+        </div>
+
+        <!-- 5. META TAGS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="card-title-dot"></div>
+                    Gerador de Meta Tags Sociais
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="meta-grid">
+                    <div class="field">
+                        <div class="field-label">Title / Name</div>
+                        <input type="text" placeholder="Meu Site Incrível" oninput="updateMeta()" id="meta-title" />
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Type</div>
+                        <input type="text" placeholder="website" oninput="updateMeta()" id="meta-type" />
+                    </div>
+                    <div class="field full">
+                        <div class="field-label">Description</div>
+                        <textarea rows="2" placeholder="Descrição do seu site..." oninput="updateMeta()"
+                            id="meta-desc"></textarea>
+                    </div>
+                    <div class="field full">
+                        <div class="field-label">Image URL</div>
+                        <input type="url" placeholder="https://meusite.com/og-image.jpg" oninput="updateMeta()"
+                            id="meta-image" />
+                    </div>
+                    <div class="field full">
+                        <div class="field-label">URL</div>
+                        <input type="url" placeholder="https://meusite.com" oninput="updateMeta()" id="meta-url" />
+                    </div>
+                    <div class="field full">
+                        <div class="field-label">Keywords</div>
+                        <input type="text" placeholder="palavra1, palavra2, palavra3" oninput="updateMeta()"
+                            id="meta-keywords" />
+                    </div>
+                </div>
+
+                <div class="field-label" style="margin-bottom: 8px;">Código gerado</div>
+                <div class="code-output" id="meta-output"><span class="comment">&lt;!-- preencha os campos acima
+                        --&gt;</span></div>
+                <div class="btn-row" style="margin-top: 1rem;">
+                    <button class="btn btn-copy" id="copy-meta-btn" onclick="fakeCopy('copy-meta-btn')">Copiar
+                        Código</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <span>© 2025 DevUtils</span>
+        <a href="https://github.com/DevUtils/devutils.github.io" target="_blank">GitHub →</a>
+    </footer>
+
+    <script>
+        /* ─── THEME ─── */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('theme-icon').textContent = isDark ? '☽' : '☀';
+            document.getElementById('theme-label').textContent = isDark ? 'Modo escuro' : 'Modo claro';
+        }
+
+        /* ─── COPY FEEDBACK ─── */
+        function fakeCopy(btnId) {
+            const btn = document.getElementById(btnId);
+            const original = btn.textContent;
+            btn.textContent = '✓ Copiado!';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
+        }
+
+        /* ─── CPF ─── */
+        function rand(n) { return Math.floor(Math.random() * n); }
+
+        function calcCpfDigit(arr) {
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) sum += arr[i] * (arr.length + 1 - i);
+            const rest = (sum * 10) % 11;
+            return rest === 10 || rest === 11 ? 0 : rest;
+        }
+
+        function generateCpf() {
+            const n = Array.from({ length: 9 }, () => rand(10));
+            n.push(calcCpfDigit(n));
+            n.push(calcCpfDigit(n));
+            return `${n[0]}${n[1]}${n[2]}.${n[3]}${n[4]}${n[5]}.${n[6]}${n[7]}${n[8]}-${n[9]}${n[10]}`;
+        }
+
+        function newCpf() {
+            document.getElementById('cpf-display').textContent = generateCpf();
+        }
+
+        /* ─── CNPJ ─── */
+        function calcCnpjDigit(arr, len) {
+            const weights = len === 12
+                ? [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+                : [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+            let sum = 0;
+            for (let i = 0; i < len; i++) sum += arr[i] * weights[i];
+            const rest = sum % 11;
+            return rest < 2 ? 0 : 11 - rest;
+        }
+
+        function generateCnpj() {
+            const n = Array.from({ length: 8 }, () => rand(10));
+            n.push(0, 0, 0, 1);
+            n.push(calcCnpjDigit(n, 12));
+            n.push(calcCnpjDigit(n, 13));
+            return `${n[0]}${n[1]}.${n[2]}${n[3]}${n[4]}.${n[5]}${n[6]}${n[7]}/${n[8]}${n[9]}${n[10]}${n[11]}-${n[12]}${n[13]}`;
+        }
+
+        function newCnpj() {
+            document.getElementById('cnpj-display').textContent = generateCnpj();
+        }
+
+        /* ─── MD5 (minimal implementation) ─── */
+        function md5(str) {
+            function safeAdd(x, y) { const lsw = (x & 0xFFFF) + (y & 0xFFFF); return (((x >> 16) + (y >> 16) + (lsw >> 16)) << 16) | (lsw & 0xFFFF); }
+            function bitRotateLeft(num, cnt) { return (num << cnt) | (num >>> (32 - cnt)); }
+            function md5cmn(q, a, b, x, s, t) { return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b); }
+            function md5ff(a, b, c, d, x, s, t) { return md5cmn((b & c) | (~b & d), a, b, x, s, t); }
+            function md5gg(a, b, c, d, x, s, t) { return md5cmn((b & d) | (c & ~d), a, b, x, s, t); }
+            function md5hh(a, b, c, d, x, s, t) { return md5cmn(b ^ c ^ d, a, b, x, s, t); }
+            function md5ii(a, b, c, d, x, s, t) { return md5cmn(c ^ (b | ~d), a, b, x, s, t); }
+            const utf8 = unescape(encodeURIComponent(str));
+            const msg = [];
+            for (let i = 0; i < utf8.length; i++) msg.push(utf8.charCodeAt(i));
+            msg.push(0x80);
+            while (msg.length % 64 !== 56) msg.push(0);
+            const bitLen = utf8.length * 8;
+            msg.push(bitLen & 0xFF, (bitLen >> 8) & 0xFF, (bitLen >> 16) & 0xFF, (bitLen >> 24) & 0xFF, 0, 0, 0, 0);
+            const M = [];
+            for (let i = 0; i < msg.length; i += 4) M.push(msg[i] | (msg[i + 1] << 8) | (msg[i + 2] << 16) | (msg[i + 3] << 24));
+            let a = 0x67452301, b = 0xEFCDAB89, c = 0x98BADCFE, d = 0x10325476;
+            for (let i = 0; i < M.length; i += 16) {
+                const [aa, bb, cc, dd] = [a, b, c, d];
+                a = md5ff(a, b, c, d, M[i], 7, -680876936); d = md5ff(d, a, b, c, M[i + 1], 12, -389564586); c = md5ff(c, d, a, b, M[i + 2], 17, 606105819); b = md5ff(b, c, d, a, M[i + 3], 22, -1044525330);
+                a = md5ff(a, b, c, d, M[i + 4], 7, -176418897); d = md5ff(d, a, b, c, M[i + 5], 12, 1200080426); c = md5ff(c, d, a, b, M[i + 6], 17, -1473231341); b = md5ff(b, c, d, a, M[i + 7], 22, -45705983);
+                a = md5ff(a, b, c, d, M[i + 8], 7, 1770035416); d = md5ff(d, a, b, c, M[i + 9], 12, -1958414417); c = md5ff(c, d, a, b, M[i + 10], 17, -42063); b = md5ff(b, c, d, a, M[i + 11], 22, -1990404162);
+                a = md5ff(a, b, c, d, M[i + 12], 7, 1804603682); d = md5ff(d, a, b, c, M[i + 13], 12, -40341101); c = md5ff(c, d, a, b, M[i + 14], 17, -1502002290); b = md5ff(b, c, d, a, M[i + 15], 22, 1236535329);
+                a = md5gg(a, b, c, d, M[i + 1], 5, -165796510); d = md5gg(d, a, b, c, M[i + 6], 9, -1069501632); c = md5gg(c, d, a, b, M[i + 11], 14, 643717713); b = md5gg(b, c, d, a, M[i], 20, -373897302);
+                a = md5gg(a, b, c, d, M[i + 5], 5, -701558691); d = md5gg(d, a, b, c, M[i + 10], 9, 38016083); c = md5gg(c, d, a, b, M[i + 15], 14, -660478335); b = md5gg(b, c, d, a, M[i + 4], 20, -405537848);
+                a = md5gg(a, b, c, d, M[i + 9], 5, 568446438); d = md5gg(d, a, b, c, M[i + 14], 9, -1019803690); c = md5gg(c, d, a, b, M[i + 3], 14, -187363961); b = md5gg(b, c, d, a, M[i + 8], 20, 1163531501);
+                a = md5gg(a, b, c, d, M[i + 13], 5, -1444681467); d = md5gg(d, a, b, c, M[i + 2], 9, -51403784); c = md5gg(c, d, a, b, M[i + 7], 14, 1735328473); b = md5gg(b, c, d, a, M[i + 12], 20, -1926607734);
+                a = md5hh(a, b, c, d, M[i + 5], 4, -378558); d = md5hh(d, a, b, c, M[i + 8], 11, -2022574463); c = md5hh(c, d, a, b, M[i + 11], 16, 1839030562); b = md5hh(b, c, d, a, M[i + 14], 23, -35309556);
+                a = md5hh(a, b, c, d, M[i + 1], 4, -1530992060); d = md5hh(d, a, b, c, M[i + 4], 11, 1272893353); c = md5hh(c, d, a, b, M[i + 7], 16, -155497632); b = md5hh(b, c, d, a, M[i + 10], 23, -1094730640);
+                a = md5hh(a, b, c, d, M[i + 13], 4, 681279174); d = md5hh(d, a, b, c, M[i], 11, -358537222); c = md5hh(c, d, a, b, M[i + 3], 16, -722521979); b = md5hh(b, c, d, a, M[i + 6], 23, 76029189);
+                a = md5hh(a, b, c, d, M[i + 9], 4, -640364487); d = md5hh(d, a, b, c, M[i + 12], 11, -421815835); c = md5hh(c, d, a, b, M[i + 15], 16, 530742520); b = md5hh(b, c, d, a, M[i + 2], 23, -995338651);
+                a = md5ii(a, b, c, d, M[i], 6, -198630844); d = md5ii(d, a, b, c, M[i + 7], 10, 1126891415); c = md5ii(c, d, a, b, M[i + 14], 15, -1416354905); b = md5ii(b, c, d, a, M[i + 5], 21, -57434055);
+                a = md5ii(a, b, c, d, M[i + 12], 6, 1700485571); d = md5ii(d, a, b, c, M[i + 3], 10, -1894986606); c = md5ii(c, d, a, b, M[i + 10], 15, -1051523); b = md5ii(b, c, d, a, M[i + 1], 21, -2054922799);
+                a = md5ii(a, b, c, d, M[i + 8], 6, 1873313359); d = md5ii(d, a, b, c, M[i + 15], 10, -30611744); c = md5ii(c, d, a, b, M[i + 6], 15, -1560198380); b = md5ii(b, c, d, a, M[i + 13], 21, 1309151649);
+                a = md5ii(a, b, c, d, M[i + 4], 6, -145523070); d = md5ii(d, a, b, c, M[i + 11], 10, -1120210379); c = md5ii(c, d, a, b, M[i + 2], 15, 718787259); b = md5ii(b, c, d, a, M[i + 9], 21, -343485551);
+                a = safeAdd(a, aa); b = safeAdd(b, bb); c = safeAdd(c, cc); d = safeAdd(d, dd);
+            }
+            return [a, b, c, d].map(v => {
+                let h = '';
+                for (let i = 0; i < 4; i++) h += ('0' + ((v >>> (i * 8)) & 0xFF).toString(16)).slice(-2);
+                return h;
+            }).join('');
+        }
+
+        function updateMd5(val) {
+            const out = document.getElementById('md5-output');
+            if (!val) {
+                out.textContent = 'aguardando entrada...';
+                out.classList.add('empty');
+            } else {
+                out.textContent = md5(val);
+                out.classList.remove('empty');
+            }
+        }
+
+        /* ─── META TAGS ─── */
+        function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+        function updateMeta() {
+            const t = document.getElementById('meta-title').value;
+            const d = document.getElementById('meta-desc').value;
+            const img = document.getElementById('meta-image').value;
+            const type = document.getElementById('meta-type').value;
+            const url = document.getElementById('meta-url').value;
+            const kw = document.getElementById('meta-keywords').value;
+
+            const out = document.getElementById('meta-output');
+            const te = esc(t), de = esc(d), ie = esc(img), tye = esc(type), ue = esc(url), ke = esc(kw);
+
+            out.innerHTML =
+                `<span class="comment">&lt;!-- HTML Básico --&gt;</span>
+<span class="tag">&lt;title&gt;</span>${te}<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"title"</span> <span class="attr">content</span>=<span class="val">"${te}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"description"</span> <span class="attr">content</span>=<span class="val">"${de}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"keywords"</span> <span class="attr">content</span>=<span class="val">"${ke}"</span><span class="tag">/&gt;</span>
+
+<span class="comment">&lt;!-- Facebook Open Graph --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:title"</span> <span class="attr">content</span>=<span class="val">"${te}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image"</span> <span class="attr">content</span>=<span class="val">"${ie}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:type"</span> <span class="attr">content</span>=<span class="val">"${tye}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:url"</span> <span class="attr">content</span>=<span class="val">"${ue}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:description"</span> <span class="attr">content</span>=<span class="val">"${de}"</span><span class="tag">/&gt;</span>
+
+<span class="comment">&lt;!-- Twitter Cards --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:title"</span> <span class="attr">content</span>=<span class="val">"${te}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:image:src"</span> <span class="attr">content</span>=<span class="val">"${ie}"</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:site"</span> <span class="attr">content</span>=<span class="val">""</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:description"</span> <span class="attr">content</span>=<span class="val">"${de}"</span><span class="tag">/&gt;</span>`;
+        }
+    </script>
+
+</body>
+
+</html>
