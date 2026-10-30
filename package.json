@@ -12,7 +12,7 @@
     "@fnando/cnpj": "^2.0.0",
     "@fnando/cpf": "1.0.2",
     "crypto-js": "^4.2.0",
-    "vue": "^3.5.13"
+    "vue": "^3.5.44"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
